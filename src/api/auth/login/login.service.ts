@@ -1,38 +1,32 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { LoginUserProvider } from './login.provider';
-import { UserRepositoryProvider } from 'src/core/entities/user/user.repository.provider';
 import { LoginDto } from './dtos/login.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { UserService } from 'src/core/entities/user/user.service';
 
 
 @Injectable()
 export class LoginUserService implements LoginUserProvider {
 
     constructor(
-        private readonly userRepository: UserRepositoryProvider,
+        private readonly userService: UserService,
         private readonly jwtService: JwtService,
     ) {}
 
     async execute(data: LoginDto){
-        
-        const user = await this.userRepository.findByEmail(data.email);
 
-        if (!user)
-            throw new NotFoundException('User does not exist');
+        const user = await this.userService.findByEmailOrFail(data.email);
 
-        if (!user.isActive)
-            throw new NotFoundException('User is disabled');
+        const isPasswordValid = await bcrypt.compare(data.password, user.password);
 
-        const isValid = await bcrypt.compare(data.password, user.password);
-
-        if (!isValid)
+        if (!isPasswordValid)
             throw new UnauthorizedException('Invalid credentials');
 
         const payload = {
             sub: user.id,
-            id: user.id,
             email: user.email,
+            id: user.id,
             roles: user.roles,
         }
 
