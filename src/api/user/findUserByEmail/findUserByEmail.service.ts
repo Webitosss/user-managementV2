@@ -19,4 +19,14 @@ export class FindUserByEmailService implements FindUserByEmailProviderAbstract {
 
     return user;
   }
+
+  async verify(email: string) {
+    const user = await this.userRepository.findByEmail(email);
+
+    if (user) {
+      throw new Error('User already exists');
+    }
+
+    return user;
+  }
 }
