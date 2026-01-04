@@ -4,14 +4,10 @@ import { LoginDto } from './dtos/login.dto';
 
 @Controller('auth/login')
 export class LoginController {
-
-  constructor(
-    private readonly loginService: LoginUserProvider
-  ) {}
+  constructor(private readonly loginService: LoginUserProvider) {}
 
   @Post()
   login(@Body() dto: LoginDto) {
     return this.loginService.execute(dto);
   }
-
 }

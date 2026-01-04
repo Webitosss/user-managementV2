@@ -6,12 +6,7 @@ import { DeleteUserProvider } from '.';
 @Module({
   imports: [UserModule],
   controllers: [DeleteUserController],
-  providers: [
-    DeleteUserProvider,
-  ],
-  exports: [
-    DeleteUserProvider,
-  ],
+  providers: [DeleteUserProvider],
+  exports: [DeleteUserProvider],
 })
 export class DeleteUserModule {}
- 

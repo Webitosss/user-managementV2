@@ -4,10 +4,7 @@ import { GetUsersQueryDto } from './dtos/getUsers.dto';
 
 @Controller('users')
 export class GetUsersController {
-
-  constructor(
-    private readonly getUsers: GetUsersServiceUserProvider,
-  ) {}
+  constructor(private readonly getUsers: GetUsersServiceUserProvider) {}
 
   @Get()
   async execute(@Query() query: GetUsersQueryDto) {
@@ -17,4 +14,3 @@ export class GetUsersController {
     });
   }
 }
- 

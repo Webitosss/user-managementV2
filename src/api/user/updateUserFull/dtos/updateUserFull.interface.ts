@@ -1,6 +1,6 @@
 export interface UpdateUserFull {
   firstName: string;
-  lastName
+  lastName;
   email: string;
   isActive: boolean;
 }

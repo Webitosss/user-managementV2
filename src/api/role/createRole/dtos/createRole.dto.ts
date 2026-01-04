@@ -2,7 +2,6 @@ import { IsString, IsNotEmpty, IsOptional, IsUppercase } from 'class-validator';
 import { CreateRole } from './createRole.interface';
 
 export class CreateRoleDto implements CreateRole {
-
   @IsString()
   @IsNotEmpty()
   @IsUppercase()
@@ -11,4 +10,4 @@ export class CreateRoleDto implements CreateRole {
   @IsString()
   @IsOptional()
   description?: string;
-}  
+}

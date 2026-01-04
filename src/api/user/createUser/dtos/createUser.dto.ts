@@ -1,8 +1,7 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { CreateUser } from './createUser.interface';
 
 export class CreateUserDto implements CreateUser {
-
   @IsString()
   @IsNotEmpty()
   firstName: string;
@@ -13,6 +12,8 @@ export class CreateUserDto implements CreateUser {
 
   @IsEmail()
   email: string;
-  
+
+  @IsString()
+  @IsOptional()
+  password?: string;
 }
- 

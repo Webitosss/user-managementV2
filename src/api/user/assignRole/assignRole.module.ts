@@ -5,10 +5,7 @@ import { UserModule } from '../../../core/entities/user/user.module';
 import { RoleModule } from '../../../core/entities/role/role.module';
 
 @Module({
-  imports: [
-    UserModule,
-    RoleModule,
-  ],
+  imports: [UserModule, RoleModule],
   controllers: [AssignRoleController],
   providers: [AssignRoleProvider],
   exports: [AssignRoleProvider],

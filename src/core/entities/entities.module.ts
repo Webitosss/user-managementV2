@@ -3,13 +3,7 @@ import { UserModule } from './user/user.module';
 import { RoleModule } from './role/role.module';
 
 @Module({
-  imports: [
-    UserModule,
-    RoleModule,
-  ],
-  exports: [
-    UserModule,
-    RoleModule,
-  ],
+  imports: [UserModule, RoleModule],
+  exports: [UserModule, RoleModule],
 })
 export class EntitiesModule {}

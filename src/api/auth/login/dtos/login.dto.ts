@@ -1,12 +1,10 @@
-import { IsEmail, IsString } from "class-validator";
-import { LoginInterface } from "./login.interface";
+import { IsEmail, IsString } from 'class-validator';
+import { LoginInterface } from './login.interface';
 
 export class LoginDto implements LoginInterface {
+  @IsEmail()
+  email: string;
 
-    @IsEmail()
-    email: string;
-
-    @IsString()
-    password: string;
-
+  @IsString()
+  password: string;
 }

@@ -10,4 +10,3 @@ import { UpdateUserProvider } from '.';
   exports: [UpdateUserProvider],
 })
 export class UpdateUserModule {}
- 

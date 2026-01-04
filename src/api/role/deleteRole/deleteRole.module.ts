@@ -7,11 +7,7 @@ import { UserModule } from 'src/core/entities/user/user.module';
 @Module({
   imports: [RoleModule, UserModule],
   controllers: [DeleteRoleController],
-  providers: [
-    DeleteRoleProvider,
-  ],
-  exports: [
-    DeleteRoleProvider,
-  ],
+  providers: [DeleteRoleProvider],
+  exports: [DeleteRoleProvider],
 })
 export class DeleteRoleModule {}

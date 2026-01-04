@@ -13,7 +13,6 @@ import { Exclude } from 'class-transformer';
 
 @Entity('users')
 export class UserEntity implements UserInterface {
-
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -39,7 +38,7 @@ export class UserEntity implements UserInterface {
   @Column({ nullable: true })
   password: string;
 
-  @ManyToMany(() => RoleEntity, role => role.users)
+  @ManyToMany(() => RoleEntity, (role) => role.users)
   @JoinTable({
     name: 'user_roles',
     joinColumn: {

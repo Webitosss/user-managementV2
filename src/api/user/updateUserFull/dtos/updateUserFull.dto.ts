@@ -1,7 +1,6 @@
 import { IsEmail, IsString, IsBoolean, IsNotEmpty } from 'class-validator';
 
 export class UpdateUserFullDto {
-
   @IsString()
   @IsNotEmpty()
   firstName: string;
@@ -17,5 +16,4 @@ export class UpdateUserFullDto {
   @IsBoolean()
   @IsNotEmpty()
   isActive: boolean;
-  
 }
