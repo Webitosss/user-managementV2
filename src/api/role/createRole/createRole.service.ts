@@ -5,17 +5,13 @@ import { CreateRole } from './dtos/createRole.interface';
 
 @Injectable()
 export class CreateRoleService implements CreateServiceRoleProvider {
-
-  constructor(
-    private readonly roleRepository: RoleRepositoryProvider,
-  ) {}
+  constructor(private readonly roleRepository: RoleRepositoryProvider) {}
 
   async execute(data: CreateRole) {
     const existingRole = await this.roleRepository.findByName(data.name);
 
-    if (existingRole)
-        throw new ConflictException('Role name already exists');
+    if (existingRole) throw new ConflictException('Role name already exists');
 
     return this.roleRepository.create(data);
-    }
+  }
 }

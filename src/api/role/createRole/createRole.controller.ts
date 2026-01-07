@@ -4,14 +4,10 @@ import { CreateServiceRoleProvider } from './createRole.provider';
 
 @Controller('roles')
 export class CreateRoleController {
-
-  constructor(
-    private readonly createRoleService: CreateServiceRoleProvider,
-  ) {}
+  constructor(private readonly createRoleService: CreateServiceRoleProvider) {}
 
   @Post()
   create(@Body() dto: CreateRoleDto) {
     return this.createRoleService.execute(dto);
   }
-} 
- 
+}

@@ -1,28 +1,32 @@
-import { Injectable } from "@nestjs/common";
-import { RegisterUserProvider } from "./register.provider";
-import { RegisterDto } from "./dtos/register.dto";
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { RegisterUserProvider } from './register.provider';
+import { RegisterDto } from './dtos/register.dto';
 import * as bcrypt from 'bcrypt';
-import { UserService } from "src/core/entities/user/user.service";
-
+import { CreateServiceUserProvider } from 'src/api/user/createUser/createUser.provider';
+import { FindUserByEmailProviderAbstract } from 'src/api/user/findUserByEmail/findUserByEmail.provider';
 
 @Injectable()
 export class RegisterUserService implements RegisterUserProvider {
+  constructor(
+    private readonly createServiceUser: CreateServiceUserProvider,
+    private readonly findUserByEmail: FindUserByEmailProviderAbstract,
+  ) {}
 
-    constructor(
-        private readonly userService: UserService
-    ) {}
+  async execute(data: RegisterDto) {
+    try {
+      await this.findUserByEmail.verify(data.email);
 
-    async execute(data: RegisterDto) {
+      const hashedPassword = await bcrypt.hash(data.password, 10);
 
-        await this.userService.emailExists(data.email);
-
-        const hashedPassword = await bcrypt.hash(data.password, 10);
-
-        return this.userService.create({
-            ...data,
-            password: hashedPassword
-        });
-
+      return this.createServiceUser.execute({
+        ...data,
+        password: hashedPassword,
+      });
+    } catch (error) {
+      throw new BadRequestException({
+        message: 'User already exists',
+        error: JSON.stringify(error),
+      });
     }
-
+  }
 }

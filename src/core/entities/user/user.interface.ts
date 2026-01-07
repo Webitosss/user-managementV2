@@ -1,4 +1,4 @@
-import { Role } from "../role/role.interface";
+import { Role } from '../role/role.interface';
 
 export interface User {
   roles: Array<Role>;
@@ -11,4 +11,3 @@ export interface User {
   updatedAt: Date;
   password: string;
 }
-

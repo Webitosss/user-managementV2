@@ -4,20 +4,15 @@ import { UserRepositoryProvider } from 'src/core/entities/user/user.repository.p
 
 @Injectable()
 export class DeleteUserService implements DeleteServiceUserProvider {
-
-  constructor(
-    private readonly userRepository: UserRepositoryProvider,
-  ) {}
+  constructor(private readonly userRepository: UserRepositoryProvider) {}
 
   async execute(id: string) {
     const user = await this.userRepository.findById(id);
 
-    if (!user)
-      throw new NotFoundException(`User with id ${id} not found`);
+    if (!user) throw new NotFoundException(`User with id ${id} not found`);
 
     await this.userRepository.delete(id);
 
-    return user; 
+    return user;
   }
 }
- 

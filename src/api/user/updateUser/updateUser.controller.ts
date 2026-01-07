@@ -4,15 +4,10 @@ import { UpdateServiceUserProvider } from './updateUser.provider';
 
 @Controller('users')
 export class UpdateUserController {
-  constructor(
-    private readonly updateUserService: UpdateServiceUserProvider,
-  ) {}
+  constructor(private readonly updateUserService: UpdateServiceUserProvider) {}
 
   @Patch(':id')
-  async updateUser(
-    @Param('id') id: string,
-    @Body() body: UpdateUserDto,
-  ) {
+  async updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
     return this.updateUserService.execute(id, body);
   }
 }

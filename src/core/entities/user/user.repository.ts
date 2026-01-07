@@ -6,7 +6,6 @@ import { UserRepositoryProvider } from './user.repository.provider';
 
 @Injectable()
 export class UserRepository implements UserRepositoryProvider {
-
   constructor(
     @InjectRepository(UserEntity)
     private readonly repository: Repository<UserEntity>,
@@ -33,7 +32,6 @@ export class UserRepository implements UserRepositoryProvider {
   }
 
   async findByFilters({ status, role }: { status?: boolean; role?: string }) {
-
     const query = this.repository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.roles', 'role');
@@ -54,9 +52,8 @@ export class UserRepository implements UserRepositoryProvider {
 
     const updatedUser = await this.findById(id);
 
-    if (!updatedUser)
-      throw new Error('User not found');
-    
+    if (!updatedUser) throw new Error('User not found');
+
     return updatedUser;
   }
 
@@ -75,5 +72,4 @@ export class UserRepository implements UserRepositoryProvider {
       .where('role.id = :roleId', { roleId })
       .getMany();
   }
-
 }

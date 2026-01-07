@@ -6,12 +6,7 @@ import { GetUserByIdProvider } from '.';
 @Module({
   imports: [UserModule],
   controllers: [GetUserByIdController],
-  providers: [
-    GetUserByIdProvider,
-  ],
-  exports: [
-    GetUserByIdProvider,
-  ],
+  providers: [GetUserByIdProvider],
+  exports: [GetUserByIdProvider],
 })
 export class GetUserByIdModule {}
- 

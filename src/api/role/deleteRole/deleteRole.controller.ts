@@ -1,12 +1,16 @@
-import { Controller, Delete, Param, ParseBoolPipe, ParseUUIDPipe, Query } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Param,
+  ParseBoolPipe,
+  ParseUUIDPipe,
+  Query,
+} from '@nestjs/common';
 import { DeleteServiceRoleProvider } from './deleteRole.provider';
 
 @Controller('roles')
 export class DeleteRoleController {
-
-  constructor(
-    private readonly deleteRole: DeleteServiceRoleProvider,
-  ) {}
+  constructor(private readonly deleteRole: DeleteServiceRoleProvider) {}
 
   @Delete(':id')
   async delete(
@@ -15,5 +19,4 @@ export class DeleteRoleController {
   ) {
     return this.deleteRole.execute(id, force);
   }
-
 }

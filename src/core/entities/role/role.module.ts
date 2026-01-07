@@ -4,9 +4,7 @@ import { RoleEntity } from './role.entity';
 import { RoleEntityProvider } from '.';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([RoleEntity]),
-  ],
+  imports: [TypeOrmModule.forFeature([RoleEntity])],
   providers: [RoleEntityProvider],
   exports: [RoleEntityProvider],
 })

@@ -3,7 +3,6 @@ import { AssignRoleServiceUserProvider } from './assignRole.provider';
 
 @Controller('users')
 export class AssignRoleController {
-
   constructor(
     private readonly assignRoleService: AssignRoleServiceUserProvider,
   ) {}

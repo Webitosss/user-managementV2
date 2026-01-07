@@ -9,14 +9,12 @@ import { UserRepositoryProvider } from 'src/core/entities/user/user.repository.p
 
 @Injectable()
 export class DeleteRoleService implements DeleteServiceRoleProvider {
-
   constructor(
     private readonly roleRepository: RoleRepositoryProvider,
     private readonly userRepository: UserRepositoryProvider,
   ) {}
 
   async execute(id: string, force: boolean): Promise<string> {
-
     const role = await this.roleRepository.findById(id);
 
     if (!role) {
@@ -24,9 +22,7 @@ export class DeleteRoleService implements DeleteServiceRoleProvider {
     }
 
     if (force === false) {
-      throw new BadRequestException(
-        'Cannot delete role without force=true'
-      );
+      throw new BadRequestException('Cannot delete role without force=true');
     }
 
     // Obtener usuarios con ese rol
@@ -41,7 +37,5 @@ export class DeleteRoleService implements DeleteServiceRoleProvider {
     await this.roleRepository.delete(id);
 
     return 'Deleted Role and Users';
-
   }
-
 }

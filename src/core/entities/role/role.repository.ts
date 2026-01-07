@@ -7,7 +7,6 @@ import { UserEntity } from '../user/user.entity';
 
 @Injectable()
 export class RoleRepository implements RoleRepositoryProvider {
-
   constructor(
     @InjectRepository(RoleEntity)
     private readonly repository: Repository<RoleEntity>,
@@ -32,17 +31,15 @@ export class RoleRepository implements RoleRepositoryProvider {
 
   async update(id: string, role: Partial<RoleEntity>): Promise<RoleEntity> {
     await this.repository.update(id, role);
-  
+
     const updatedRole = await this.findById(id);
-  
-    if (!updatedRole)
-      throw new Error('Role not found');
-      
+
+    if (!updatedRole) throw new Error('Role not found');
+
     return updatedRole;
   }
 
   async delete(id: string): Promise<void> {
     await this.repository.delete(id);
   }
-
 }
