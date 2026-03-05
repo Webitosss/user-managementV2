@@ -24,7 +24,7 @@ export class AssignRoleService implements AssignRoleServiceUserProvider {
     const alreadyHasRole = user.roles?.some((r) => r.id === role.id);
 
     if (!alreadyHasRole) {
-      user.roles = [role];
+      user.roles = [...(user.roles || []), role];
       await this.userRepository.save(user);
     }
   }

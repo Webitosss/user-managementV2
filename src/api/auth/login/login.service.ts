@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { LoginUserProvider } from './login.provider';
 import { LoginDto } from './dtos/login.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -7,30 +7,40 @@ import { FindUserByEmailProviderAbstract } from 'src/api/user/findUserByEmail/fi
 
 @Injectable()
 export class LoginUserService implements LoginUserProvider {
+  
   constructor(
     private readonly findUserByEmail: FindUserByEmailProviderAbstract,
     private readonly jwtService: JwtService,
   ) {}
 
   async execute(data: LoginDto) {
-    const user = await this.findUserByEmail.execute(data.email);
+    try {
+      const user = await this.findUserByEmail.execute(data.email);
 
-    const isPasswordValid = await bcrypt.compare(data.password, user.password);
+      const isPasswordValid = await bcrypt.compare(data.password, user.password);
 
-    if (!isPasswordValid)
-      throw new UnauthorizedException('Invalid credentials');
+      if (!isPasswordValid)
+        throw new UnauthorizedException('Invalid credentials');
 
-    const payload = {
-      sub: user.id,
-      email: user.email,
-      id: user.id,
-      roles: user.roles,
-    };
+      const roleNames = user.roles?.map((role) => role.name) ?? [];
 
-    const token = await this.jwtService.signAsync(payload, {
-      expiresIn: '30m',
-    });
+      const payload = {
+        sub: user.id,
+        email: user.email,
+        id: user.id,
+        roles: roleNames,
+      };
 
-    return { token };
+      const token = await this.jwtService.signAsync(payload, {
+        expiresIn: '30m',
+      });
+
+      return { token };
+    } catch (error) {
+      if (error instanceof UnauthorizedException || error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new BadRequestException('An error occurred during login');
+    }
   }
 }

@@ -22,6 +22,7 @@ export class RegisterUserService implements RegisterUserProvider {
         ...data,
         password: hashedPassword,
       });
+      
     } catch (error) {
       throw new BadRequestException({
         message: 'User already exists',

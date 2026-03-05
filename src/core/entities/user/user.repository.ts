@@ -28,7 +28,7 @@ export class UserRepository implements UserRepositoryProvider {
   }
 
   async findByEmail(email: string): Promise<UserEntity | null> {
-    return this.repository.findOne({ where: { email } });
+    return this.repository.findOne({ where: { email }, relations: ['roles'] });
   }
 
   async findByFilters({ status, role }: { status?: boolean; role?: string }) {
